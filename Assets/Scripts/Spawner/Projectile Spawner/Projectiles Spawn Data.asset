@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924ceb2e2bb2a18418835e9a3a79a29e, type: 3}
-  m_Name: Enemy Data
+  m_Script: {fileID: 11500000, guid: f8d2ff074136c1e448c829b77702f8b6, type: 3}
+  m_Name: Projectiles Spawn Data
   m_EditorClassIdentifier: 
-  id: 0
-  nameKey: Slime
-  stats:
-    maxHp: 50
-    armor: 5
-    damage: 10
-    speed: 2
+  prefabs:
+  - id: 0
+    key: Arrow
+    prefab: {fileID: 8436413928426715185, guid: 10699609171c6b941880d072f29e6955, type: 3}

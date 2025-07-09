@@ -24,6 +24,13 @@ namespace Game.Script.PlayerComponent
         {
             states.UpdateState();
         }
+
+        public override void FaceTo(Transform target = null)
+        {
+            if (target == null) return;
+            if (target.position.x > transform.position.x) Flip(true);
+            else Flip(false);
+        }
     }
 }
 

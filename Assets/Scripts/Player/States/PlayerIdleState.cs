@@ -22,11 +22,20 @@ namespace Game.Script.PlayerComponent.States
 
         public override void Execute()
         {
+            player.Flip(player.Controller.LastHorizontal);
+
             if (player.Controller.IsMove())
             {
                 player.States.ChangeState(EEStateType.Move);
                 return;
             }
+
+            if(player.Controller.IsRangeAtk() == EAtkType.Range)
+            {
+                player.States.ChangeState(EEStateType.AtkRange);
+                return;
+            }
+
         }
     }
 }

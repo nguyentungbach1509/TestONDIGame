@@ -24,12 +24,14 @@ namespace Game.Script.PlayerComponent.States
 
         public override void Execute()
         {
-            if(!player.Controller.IsMove())
+            player.Controller.Move();
+
+            if (!player.Controller.IsMove())
             {
                 player.States.ChangeState(EEStateType.Idle);
                 return;
             }
-            player.Controller.Move();
+
         }
     }
 }

@@ -24,8 +24,9 @@ namespace Game.Script.WallComponent
         public Vector2 GetRandomPointOnWall()
         {
             Bounds bounds = sprite.bounds;
-            Vector2 top = bounds.min;
-            Vector2 bottom = bounds.max;
+            Debug.Log(bounds.center);
+            Vector2 bottom = bounds.min;
+            Vector2 top = bounds.max;
 
             Vector2 direction = (bottom - top).normalized;
             float length = Vector2.Distance(top, bottom);
@@ -33,6 +34,14 @@ namespace Game.Script.WallComponent
             float randomOffset = Random.Range(0, length);
             Vector2 point = top + direction * randomOffset;
 
+            if(point.y <= bounds.center.y)
+            {
+                point.x = Random.Range(bounds.center.x, bounds.max.x);
+            }
+            else
+            {
+                point.x = Random.Range(bounds.min.x, bounds.center.x);
+            }
             return point;
         }
 

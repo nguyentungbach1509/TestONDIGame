@@ -14,6 +14,14 @@ namespace Game.Script.Foes
             else enemyDict.Clear();
         }
 
+        public static void UpdateAllEnemy()
+        {
+            foreach(Enemy enemy in enemyDict.Values)
+            {
+                enemy.Execute();
+            }
+        }
+
         public static void AddEnemy(Enemy enemy) => enemyDict.Add(enemy.Collider, enemy);
         public static Enemy GetEnemy(Collider2D collider)
         {

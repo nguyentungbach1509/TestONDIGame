@@ -12,14 +12,26 @@ namespace Game.Script.CharacterComponent
         [SerializeField] protected CharacterData data;
         [SerializeField] protected CharacterCanvas canvas;
         [SerializeField] protected AnimationController animator;
-        [SerializeField] protected SpriteRenderer spriteRenderer;
-
+        
         protected CharacterStats stats;
 
         public CharacterStats Stats => stats;
         public AnimationController Animator => animator;
-        
-        public void Flip(bool flip) => spriteRenderer.flipX = flip;
+
+        public void Flip(bool flip)
+        {
+            float scaleX = transform.localScale.x;
+            float scaleY = transform.localScale.y;
+            if (flip)
+            {
+                scaleX = Mathf.Abs(scaleX) * -1;
+                transform.localScale = new Vector3(scaleX, scaleY, 0);
+                return;
+            }
+            scaleX = Mathf.Abs(scaleX);
+            transform.localScale = new Vector3(scaleX, scaleY, 0);
+            return;
+        }
 
         
         public virtual void Init()

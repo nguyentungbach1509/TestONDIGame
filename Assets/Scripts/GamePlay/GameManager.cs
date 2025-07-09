@@ -1,3 +1,4 @@
+using Game.Script.SpawnMechanic;
 using Game.Script.SubScripts;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Game.Script.GamePlay
     {
         [SerializeField] GameMode mode;
 
-
+        private SpawnerManager spawner => SpawnerManager.Instance;
         private EGameState state;
 
         public EGameState State => state;
@@ -21,6 +22,7 @@ namespace Game.Script.GamePlay
 
         private void Start()
         {
+            spawner.Init();
             mode.Init();
         }
 

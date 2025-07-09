@@ -7,12 +7,9 @@ namespace Game.Script.GamePlay
 {
     public class GameNormalMode : GameMode
     {
-        [SerializeField] Enemy enemy;
-
         public override void Init()
         {
             player.Init();
-            enemy.Init();
             isInit = true;
         }
 
@@ -20,7 +17,7 @@ namespace Game.Script.GamePlay
         {
             if (!isInit) return;
             player.Execute();
-            enemy.Execute();
+            EnemyCache.UpdateAllEnemy();
         }
     }
 }
