@@ -14,18 +14,13 @@ namespace Game.Script.PlayerComponent
         public PlayerController Controller => controller;
         public PlayerStateController States => states;
 
-        private void Start()
-        {
-            Init();
-        }
-
         public override void Init()
         {
             base.Init();
             states = new PlayerStateController(this);
         }
 
-        private void Update()
+        public override void Execute()
         {
             states.UpdateState();
         }

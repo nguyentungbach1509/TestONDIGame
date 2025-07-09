@@ -1,6 +1,6 @@
 using Game.Script.CharacterComponent;
 using Game.Script.StateMachine;
-using Game.Script.Subscript.Constants;
+using Game.Script.Subscripts.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

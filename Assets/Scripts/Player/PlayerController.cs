@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,11 @@ namespace Game.Script.PlayerComponent
         [Header("References")]
         [SerializeField] Player player;
         [SerializeField] Joystick joyStick;
+        [SerializeField] Rigidbody2D rb;
+
+        [Header("Settings")]
+        [SerializeField] float atkMeleeRange;
+        [SerializeField] float atkRange;
 
         public bool IsMove()
         {
@@ -19,9 +24,16 @@ namespace Game.Script.PlayerComponent
 
         public void Move()
         {
-            Vector3 direct = joyStick.Direction.normalized;
-            transform.position += direct * player.Stats.Speed * Time.deltaTime;
+            Vector2 direct = joyStick.Direction.normalized;
+            Vector2 newPosition = rb.position + direct * Time.fixedDeltaTime * player.Stats.Speed;
+            Vector3 viewPort = Camera.main.WorldToViewportPoint(newPosition);
+            viewPort.x = Mathf.Clamp(viewPort.x, 0.05f, 0.95f); //chừa chút lề
+            viewPort.y = Mathf.Clamp(viewPort.y, 0.05f, 0.95f);
+            newPosition = Camera.main.ViewportToWorldPoint(viewPort);
+
+            rb.MovePosition(newPosition);
         }
+
 
     }
 }

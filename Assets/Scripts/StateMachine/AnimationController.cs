@@ -1,4 +1,4 @@
-﻿using Game.Script.Subscript.Constants;
+﻿using Game.Script.Subscripts.Constants;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
