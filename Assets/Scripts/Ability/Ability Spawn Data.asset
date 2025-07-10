@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d9f9d3808278b4fba06b6e93d28b66, type: 3}
+  m_Name: Ability Spawn Data
+  m_EditorClassIdentifier: 
+  prefabs:
+  - id: 0
+    key: Arrow_Ability
+    prefab: {fileID: 4976942710896904790, guid: 761d1235f6d93e840961cbe14a0a5186, type: 3}
+  - id: 1
+    key: RegenHp_Ability
+    prefab: {fileID: 2253254281343435663, guid: 2eee01eb1d8e6174ab8e76da4d62c59f, type: 3}

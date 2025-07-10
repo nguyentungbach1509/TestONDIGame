@@ -1,9 +1,11 @@
-﻿using Game.Script.Foes;
+﻿using Game.Script.AbilityComponent;
+using Game.Script.Foes;
 using Game.Script.ProjectileComponent;
 using Game.Script.SpawnMechanic;
 using Game.Script.SubScripts;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Game.Script.PlayerComponent
@@ -28,23 +30,38 @@ namespace Game.Script.PlayerComponent
         [SerializeField] LayerMask layerMask;
 
         private Enemy currentTarget;
-        private SpawnerManager spawner => SpawnerManager.Instance;
+        private List<Enemy> enemyInMeleeRange = new();
+        private SpawnerManager spawner;
+        private AbilityManager abilityManager;
+
         private bool lastHorizontal;
+        private bool isAtking;
 
         public bool LastHorizontal => lastHorizontal;
         public Transform FirePoint => firePoint;
 
+
+        public void Init(SpawnerManager spawner, AbilityManager abilityManager)
+        {
+            this.spawner = spawner;
+            this.abilityManager = abilityManager;
+        }
+
+        #region Move Handler
         public bool IsMove()
         {
-            lastHorizontal = joyStick.Horizontal > 0;
+            Vector2 direct = joyStick.Direction;
+            if(direct.magnitude > 0.01f)
+            {
+                isAtking = false;
+                lastHorizontal = joyStick.Horizontal > 0;
+            }
+            if(!isAtking) player.Flip(lastHorizontal);
             return joyStick.Direction.magnitude > 0.01f;
         }
 
-        
-
         public void Move()
         {
-            player.Flip(joyStick.Horizontal > 0);
             Vector2 direct = joyStick.Direction.normalized;
             Vector2 newPosition = rb.position + direct * Time.fixedDeltaTime * player.Stats.Speed;
             Vector3 viewPort = Camera.main.WorldToViewportPoint(newPosition);
@@ -54,13 +71,23 @@ namespace Game.Script.PlayerComponent
 
             rb.MovePosition(newPosition);
         }
+        #endregion
+
+        #region Atk Handler
+        public void StartAtk()
+        {
+            isAtking = true;
+            player.FaceTo(currentTarget.transform);
+        }
 
         public EAtkType IsRangeAtk()
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, atkRange, layerMask);
 
+            enemyInMeleeRange.Clear();
             float distance = 0;
             float minDistance = atkRange;
+            currentTarget = null;
 
             foreach(var collider in colliders)
             {
@@ -68,7 +95,12 @@ namespace Game.Script.PlayerComponent
                 if (enemy == null) continue;
                 enemy.HideAim();
                 distance = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distance <= atkMeleeRange) continue;
+                if (distance <= atkMeleeRange)
+                {
+                    enemyInMeleeRange.Add(enemy);
+                    currentTarget = enemy;
+                    continue;
+                }
                 if(distance <= minDistance)
                 {
                     minDistance = distance;
@@ -76,21 +108,41 @@ namespace Game.Script.PlayerComponent
                 }
             }
             
+            if (enemyInMeleeRange.Count > 0) return EAtkType.Melee;
             if (distance <= atkRange && distance > atkMeleeRange) return EAtkType.Range;
-            if(distance <= atkMeleeRange) return EAtkType.Melee;
             return EAtkType.None;
         }
 
         public void Atk(bool isRange = false)
         {
+            if(currentTarget == null) return;
+            
             if(isRange)
             {
-                currentTarget?.ShowAim();
-                player.FaceTo(currentTarget.transform);
+                currentTarget.ShowAim();
+                ArrowAbility arrowAbility = abilityManager.GetAbility(PrefabConstants.Arrow_Ability) as ArrowAbility;
+                if (arrowAbility.IsAvailable)
+                {
+                    arrowAbility.UseAbility(currentTarget.transform);
+                    return;
+                }
                 Arrow arrow = spawner.ProjectileSpawner.SpawnProjectile(PrefabConstants.Arrow, firePoint.position, Quaternion.identity) as Arrow;
-                arrow.MoveTo(currentTarget.transform.position);
+                arrow.SetOwner(player);
+                arrow.SetDamage(player.Stats.Damage);
+                arrow.MoveTo(currentTarget.transform);
+                
+                return;
             }
+
+            foreach(var enemy in enemyInMeleeRange)
+            {
+                enemy.ShowAim();
+                enemy.Stats.UpdateHp(new DamageInfor(player.Stats.Damage, player));
+            }
+            return;
         }
+        #endregion
+
 
         void OnDrawGizmosSelected()
         {

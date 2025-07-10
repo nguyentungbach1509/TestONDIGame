@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Game.Script.Foes
     public static class EnemyCache
     {
         private static Dictionary<Collider2D, Enemy> enemyDict;
+
+        public static Action OnRemoveEnemy;
 
         public static void Init()
         {

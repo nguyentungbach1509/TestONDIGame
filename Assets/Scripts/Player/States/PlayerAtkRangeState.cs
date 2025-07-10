@@ -26,9 +26,18 @@ namespace Game.Script.PlayerComponent.States
         public override void Enter()
         {
             base.Enter();
+            player.Controller.StartAtk();
             player.Animator.PlayAnimation(AnimationKey.AtkRange);
         }
 
+        public override void Execute()
+        {
+            if(player.Controller.IsMove())
+            {
+                player.States.ChangeState(EEStateType.Move);
+                return;
+            }
+        }
 
         private void OnAtk()
         {

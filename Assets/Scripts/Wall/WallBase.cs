@@ -11,8 +11,13 @@ namespace Game.Script.WallComponent
         [SerializeField] WallCanvas canvas;
         [SerializeField] SpriteRenderer sprite;
 
+        [Header("Settings")]
+        [SerializeField] float marginTop = 1f;
+        [SerializeField] float marginBottom = .5f;
+
         private WallStats stats;
         public WallStats Stats => stats;
+        
         public void Init()
         {
             stats = new WallStats(data);
@@ -27,6 +32,9 @@ namespace Game.Script.WallComponent
             Debug.Log(bounds.center);
             Vector2 bottom = bounds.min;
             Vector2 top = bounds.max;
+
+            bottom.y += marginBottom;
+            top.y -= marginTop;
 
             Vector2 direction = (bottom - top).normalized;
             float length = Vector2.Distance(top, bottom);

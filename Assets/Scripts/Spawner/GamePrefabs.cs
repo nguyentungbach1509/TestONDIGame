@@ -1,3 +1,5 @@
+using Game.Script.AbilityComponent;
+using Game.Script.VFXComponent;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,6 +16,14 @@ namespace Game.Script.SpawnMechanic
         [Header("Projectiles")]
         [SerializeField] ProjectileSpawnData projectileSpawn;
         public ProjectileSpawnData ProjectilePrefabs => projectileSpawn;
+
+        [Header("VFX")]
+        [SerializeField] VFXSpawnData vfxSpawn;
+        public VFXSpawnData VFXPrefabs => vfxSpawn;
+
+        [Header("Abilities")]
+        [SerializeField] AbilitySpawnData abilitySpawn;
+        public AbilitySpawnData AbilityPrefabs => abilitySpawn;
     }
 }
 

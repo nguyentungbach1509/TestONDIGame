@@ -1,8 +1,5 @@
 using Game.Script.Foes;
-using Game.Script.WallComponent;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 namespace Game.Script.GamePlay
 {
     public class GameNormalMode : GameMode
@@ -10,6 +7,7 @@ namespace Game.Script.GamePlay
         public override void Init()
         {
             player.Init();
+            wall.Init();
             isInit = true;
         }
 

@@ -16,3 +16,6 @@ MonoBehaviour:
   - id: 0
     key: Arrow
     prefab: {fileID: 8436413928426715185, guid: 10699609171c6b941880d072f29e6955, type: 3}
+  - id: 1
+    key: Arrow_Skill
+    prefab: {fileID: 4779929737338530144, guid: 68c4748a1db52c141b0dc9a1e86494e5, type: 3}

@@ -9,12 +9,10 @@ namespace Game.Script.ProjectileComponent
     {
         [SerializeField] int id;
         [SerializeField] string key;
-        [SerializeField] float damage;
         [SerializeField] float speed;
 
         public int Id => id;
         public string Key => key;
-        public float Damage => damage;
         public float Speed => speed;
     }
 }

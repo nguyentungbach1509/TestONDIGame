@@ -1,3 +1,4 @@
+using Game.Script.AbilityComponent;
 using Game.Script.SpawnMechanic;
 using Game.Script.SubScripts;
 using System.Collections;
@@ -16,6 +17,7 @@ namespace Game.Script.GamePlay
 
         private SpawnerManager spawner => SpawnerManager.Instance;
         private EGameState state;
+        private AbilityManager abilityManager => AbilityManager.Instance;
 
         public EGameState State => state;
         public GameMode Mode => mode;
@@ -24,6 +26,7 @@ namespace Game.Script.GamePlay
         {
             spawner.Init();
             mode.Init();
+            abilityManager.Init();
         }
 
         public void Update()

@@ -1,4 +1,5 @@
 ﻿using Game.Script.SubScripts;
+using Game.Script.VFXComponent;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,20 @@ namespace Game.Script.SpawnMechanic
 
         private EnemySpawner enemySpawner;
         private ProjectileSpawner projectileSpawner;
+        private VFXSpawner vfxSpawner;
+        private AbilitySpawner abilitySpawner;
 
         public EnemySpawner EnemySpawner => enemySpawner;
-        public ProjectileSpawner ProjectileSpawner => projectileSpawner;    
+        public ProjectileSpawner ProjectileSpawner => projectileSpawner;  
+        public VFXSpawner VFXSpawner => vfxSpawner;
+        public AbilitySpawner AbilitySpawner => abilitySpawner;
 
         public void Init()
         {
             enemySpawner = new EnemySpawner(gamePrefabs);
             projectileSpawner = new ProjectileSpawner(gamePrefabs);
+            vfxSpawner = new VFXSpawner(gamePrefabs);
+            abilitySpawner = new AbilitySpawner(gamePrefabs);
             SpawnRandomEnemy();
         }
 
@@ -31,7 +38,7 @@ namespace Game.Script.SpawnMechanic
             {
                 while(true)
                 {
-                    List<Vector2> points = GetRandomPoints(Random.Range(2, 3), 3);
+                    List<Vector2> points = GetRandomPoints(Random.Range(1,3), 3);
                     foreach (Vector2 point in points)
                     {
                         enemySpawner.SpawnEnemy(PrefabConstants.Slime, point, Quaternion.identity);

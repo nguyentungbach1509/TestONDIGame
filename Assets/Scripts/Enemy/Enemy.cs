@@ -2,10 +2,12 @@ using Game.Script.CharacterComponent;
 using Game.Script.Foes.States;
 using Game.Script.GamePlay;
 using Game.Script.PlayerComponent;
+using Game.Script.StateMachine;
 using Game.Script.WallComponent;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 namespace Game.Script.Foes
@@ -31,6 +33,7 @@ namespace Game.Script.Foes
         {
             base.Init();
             states = new EnemyStateController(this);
+            spriteObject.SetActive(false);
             player = GameManager.Instance.Mode.Player;
             wall = GameManager.Instance.Mode.Wall;
             controller.Init(player, wall);
@@ -42,11 +45,23 @@ namespace Game.Script.Foes
             states.UpdateState();
         }
 
-        
+        protected override void OnDie(CharacterBase character)
+        {
+            base.OnDie(character);
+            states.ChangeState(EEStateType.Die);
+            if (character != this) character.AddKilledCount(1);
+        }
+
         public override void FaceTo(Transform target=null)
         {
             if (target == null) return;
-            if (target.position.x > transform.position.x) Flip(true);
+            if (target.position.x >= transform.position.x) Flip(true);
+            else Flip(false);
+        }
+
+        public override void FaceTo(Vector2 position)
+        {
+            if (position.x >= transform.position.x) Flip(true);
             else Flip(false);
         }
 
@@ -58,6 +73,12 @@ namespace Game.Script.Foes
         public void ShowAim()
         {
             spriteObject.SetActive(true);
+        }
+
+        public override void OnDespawn()
+        {
+            base.OnDespawn();
+            animator.UnRegisterAllEvent();
         }
     }
 }

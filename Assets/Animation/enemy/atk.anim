@@ -47,6 +47,35 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 7c5f998c684ff164d9b64d9abfa23edd, type: 3}
+    - time: 0.13333334
+      value: {fileID: 21300000, guid: 6a5edf8f4491e75408410bf40e7df58b, type: 3}
+    - time: 0.26666668
+      value: {fileID: 21300000, guid: a227e97feeb16b240a8221957232193e, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: 1151f85d35d965f4bad15ff152628ba5, type: 3}
+    - time: 0.53333336
+      value: {fileID: 21300000, guid: 46b7d7c2ba51df5409ca706ff5bf4594, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 07169d10bdcf0e9498545d61b33b4702, type: 3}
+    - time: 0.8
+      value: {fileID: 21300000, guid: f2d71e8f07c90df4c952320090fbda54, type: 3}
+    - time: 0.93333334
+      value: {fileID: 21300000, guid: 3a82fd75830b83c42875413f8377ee56, type: 3}
+    - time: 1.0666667
+      value: {fileID: 21300000, guid: b27d079a212c25b4699f7bfef838debe, type: 3}
+    - time: 1.2
+      value: {fileID: 21300000, guid: 7589070e6db59f1438df962fa409225e, type: 3}
+    - time: 1.3333334
+      value: {fileID: 21300000, guid: 57b369d0214b9d540ad32aab1f6ce143, type: 3}
+    attribute: m_Sprite
+    path: Aim
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -63,7 +92,27 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 153482222
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 7c5f998c684ff164d9b64d9abfa23edd, type: 3}
+    - {fileID: 21300000, guid: 6a5edf8f4491e75408410bf40e7df58b, type: 3}
+    - {fileID: 21300000, guid: a227e97feeb16b240a8221957232193e, type: 3}
+    - {fileID: 21300000, guid: 1151f85d35d965f4bad15ff152628ba5, type: 3}
+    - {fileID: 21300000, guid: 46b7d7c2ba51df5409ca706ff5bf4594, type: 3}
+    - {fileID: 21300000, guid: 07169d10bdcf0e9498545d61b33b4702, type: 3}
+    - {fileID: 21300000, guid: f2d71e8f07c90df4c952320090fbda54, type: 3}
+    - {fileID: 21300000, guid: 3a82fd75830b83c42875413f8377ee56, type: 3}
+    - {fileID: 21300000, guid: b27d079a212c25b4699f7bfef838debe, type: 3}
+    - {fileID: 21300000, guid: 7589070e6db59f1438df962fa409225e, type: 3}
+    - {fileID: 21300000, guid: 57b369d0214b9d540ad32aab1f6ce143, type: 3}
     - {fileID: 21300000, guid: 7c5f998c684ff164d9b64d9abfa23edd, type: 3}
     - {fileID: 21300000, guid: 6a5edf8f4491e75408410bf40e7df58b, type: 3}
     - {fileID: 21300000, guid: a227e97feeb16b240a8221957232193e, type: 3}
@@ -100,6 +149,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.5
+    functionName: OnAnimationEvent
+    data: Atk:Hit
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.3333334
     functionName: OnAnimationEvent
     data: Atk:Finished

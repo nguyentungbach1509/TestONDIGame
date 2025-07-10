@@ -18,12 +18,21 @@ namespace Game.Script.Foes.States
                 AnimationKey.Atk, 
                 AnimationEventType.Finished, 
                 OnAtkFinished);
+            enemy.Animator.RegisterAnimationEvent(
+                AnimationKey.Atk,
+                AnimationEventType.Hit,
+                OnAtk);
         }
 
         public override void Enter()
         {
             base.Enter();
             enemy.Animator.PlayAnimation(AnimationKey.Atk);
+        }
+
+        private void OnAtk()
+        {
+            enemy.Controller.Atk();
         }
 
         private void OnAtkFinished()
