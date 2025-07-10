@@ -27,7 +27,7 @@ namespace Game.Script.CharacterComponent
 
         public Action<float> OnHealthChange;
         public Action<CharacterBase> OnDie;
-
+        public Action<float, bool> OnDamageTaken;
         public CharacterStats(CharacterData data)
         {
             id = data.Id;
@@ -43,6 +43,7 @@ namespace Game.Script.CharacterComponent
         {
             if(add) currentHp = Mathf.Clamp(currentHp + damageInfor.Damage, 0, maxHp);
             else currentHp -= (damageInfor.Damage -armor);
+            OnDamageTaken?.Invoke(add ? damageInfor.Damage: damageInfor.Damage - armor, add);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
@@ -55,6 +56,7 @@ namespace Game.Script.CharacterComponent
         {
             if(add) currentHp = Mathf.Clamp(currentHp + damage, 0, maxHp);
             else currentHp -= (damage - armor);
+            OnDamageTaken?.Invoke(add ? damage : damage - armor, add);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {

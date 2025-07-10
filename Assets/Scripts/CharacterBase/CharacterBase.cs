@@ -30,8 +30,10 @@ namespace Game.Script.CharacterComponent
         public virtual void Init()
         {
             stats = new CharacterStats(data);
+            canvas.DmgPopup.Init();
             stats.OnHealthChange += OnHit;
             stats.OnDie += OnDie;
+            stats.OnDamageTaken += canvas.DmgPopup.UpdateDmgText;
             killedCount = 0;
             canvas.HealthBar.SetInitHP();
         }
@@ -74,6 +76,7 @@ namespace Game.Script.CharacterComponent
 
         protected virtual void OnDie(CharacterBase character)
         {
+            stats.OnDamageTaken -= canvas.DmgPopup.UpdateDmgText;
             stats.OnHealthChange -= OnHit;
             stats.OnDie -= OnDie;
         }

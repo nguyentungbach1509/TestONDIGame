@@ -64,6 +64,7 @@ namespace Game.Script.GamePlay
                 spawner.PauseSpawn(currentWave);
                 timeCounter = buildingTime;
                 waveType = EWaveType.BreakingWave;
+                OnWaveChange?.Invoke(-1);
                 return;
             }
             /*if (EndWave(currentWave))

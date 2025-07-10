@@ -15,12 +15,17 @@ namespace Game.Script.UI
         {
             GameNormalMode.OnWaveChange -= UpdateTxt;
             GameNormalMode.OnWaveChange += UpdateTxt;
-            waveText.text = "Wave: 1";
+            waveText.text = "Preparing Wave";
             timeScale.Init();
         }
 
         private void UpdateTxt(int currentWave)
         {
+            if(currentWave == -1)
+            {
+                waveText.text = "Preparing Wave";
+                return;
+            }
             waveText.text = $"Wave: {currentWave}";
         }
     }
