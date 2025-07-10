@@ -52,6 +52,15 @@ namespace Game.Script.SpawnMechanic
             EnemyCache.RemoveEnemy(enemy);
             enemyPools[key].Despawn(enemy);
         }
+
+        public void DespawnAll()
+        {
+            foreach(var enemy in EnemyCache.EnemyDict.Values)
+            {
+                enemyPools[enemy.Stats.KeyName].Despawn(enemy);
+            }
+            EnemyCache.RemoveAll();
+        }
     }
 }
 

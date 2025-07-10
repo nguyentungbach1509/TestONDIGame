@@ -1,4 +1,5 @@
-﻿using Game.Script.SubScripts;
+﻿using Game.Script.GamePlay;
+using Game.Script.SubScripts;
 using Game.Script.VFXComponent;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,14 +8,31 @@ namespace Game.Script.SpawnMechanic
 {
     public class SpawnerManager : Singleton<SpawnerManager>
     {
+        
         [SerializeField] GamePrefabs gamePrefabs;
+
+        [Header("Settings")]
         [SerializeField] float xBorderRight;
         [SerializeField] float margin;
 
+        [Header("Enemy Spawn Config")]
+        [Range(3, 5)]
+        [SerializeField] float spawnMinInterval;
+        [Range(3, 5)]
+        [SerializeField] float spawnMaxInterval; // Thời gian giữa các lần spawn
+
+
+        [Range(1, 3)]
+        [SerializeField] int spawnMinCount;
+        [Range(1, 3)]
+        [SerializeField] int spawnMaxCount; // Thời gian giữa các lần spawn
+
+        private Coroutine spawnCoroutine;
         private EnemySpawner enemySpawner;
         private ProjectileSpawner projectileSpawner;
         private VFXSpawner vfxSpawner;
         private AbilitySpawner abilitySpawner;
+        private GameMode mode => GameManager.Instance.Mode;
 
         public EnemySpawner EnemySpawner => enemySpawner;
         public ProjectileSpawner ProjectileSpawner => projectileSpawner;  
@@ -27,29 +45,8 @@ namespace Game.Script.SpawnMechanic
             projectileSpawner = new ProjectileSpawner(gamePrefabs);
             vfxSpawner = new VFXSpawner(gamePrefabs);
             abilitySpawner = new AbilitySpawner(gamePrefabs);
-            SpawnRandomEnemy();
         }
 
-        public void SpawnRandomEnemy()
-        {
-            StartCoroutine(Spawn());
-
-            IEnumerator Spawn()
-            {
-                while(true)
-                {
-                    List<Vector2> points = GetRandomPoints(Random.Range(1,3), 3);
-                    foreach (Vector2 point in points)
-                    {
-                        enemySpawner.SpawnEnemy(PrefabConstants.Slime, point, Quaternion.identity);
-
-                    }
-                    yield return new WaitForSeconds(Random.Range(1f,3f));
-                }
-               
-            }
-            
-        }
 
         private List<Vector2> GetRandomPoints(int count, float minDistance, int maxAttempts = 1000)
         {
@@ -102,6 +99,45 @@ namespace Game.Script.SpawnMechanic
 
             Vector2 position = new Vector2(randomX, randomY);
             return position;
+        }
+
+        public void SpawnRandomEnemy(int currentWave)
+        {
+            if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
+            spawnCoroutine = StartCoroutine(Spawn(currentWave));
+
+        }
+
+        public void PauseSpawn(int currentWave)
+        {
+            if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
+            else StopCoroutine(Spawn(currentWave));
+        }
+
+        private IEnumerator Spawn(int currentWave)
+        {
+            while (!mode.EndWave(currentWave))
+            {
+                int numberEnemy = Random.Range(spawnMinCount, spawnMaxCount);
+                mode.AddEnemy(numberEnemy);
+                List<Vector2> points = GetRandomPoints(numberEnemy, 3);
+                float randomInterval = Random.Range(spawnMinInterval, spawnMaxInterval);
+                foreach (Vector2 point in points)
+                {
+                    enemySpawner.SpawnEnemy(PrefabConstants.Slime, point, Quaternion.identity);
+
+                }
+                yield return new WaitForSeconds(randomInterval);
+            }
+
+        }
+
+        public void DespawnAll()
+        {
+            enemySpawner.DespawnAll();
+            projectileSpawner.DespawnAll();
+            vfxSpawner.DespawnAll();
+            abilitySpawner.DespawnAll();
         }
 
     }

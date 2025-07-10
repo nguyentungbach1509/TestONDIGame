@@ -23,7 +23,7 @@ namespace Game.Script.WallComponent
             stats = new WallStats(data);
             stats.OnHealthChange += canvas.HealthBar.UpdateHealth;
             stats.OnDestroy += OnWallDestroy;
-            //stats.UpdateHp(0);
+            canvas.HealthBar.SetInitHP();
         }
 
         public Vector2 GetRandomPointOnWall()

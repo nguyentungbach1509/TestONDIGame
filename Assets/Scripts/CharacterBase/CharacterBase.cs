@@ -32,6 +32,7 @@ namespace Game.Script.CharacterComponent
             stats = new CharacterStats(data);
             stats.OnHealthChange += OnHit;
             stats.OnDie += OnDie;
+            killedCount = 0;
             canvas.HealthBar.SetInitHP();
         }
         public void Flip(bool flip)

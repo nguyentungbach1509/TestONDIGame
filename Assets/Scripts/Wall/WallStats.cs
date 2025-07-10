@@ -34,24 +34,24 @@ namespace Game.Script.WallComponent
 
         public void UpdateHp(DamageInfor damageInfor, bool add = false)
         {
-            currentHp -= damageInfor.Damage;
+            currentHp -= (damageInfor.Damage - armor);
+            OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
                 currentHp = 0;
                 OnDestroy?.Invoke();
             }
-            OnHealthChange?.Invoke(currentHp / maxHp);
         }
 
         public void UpdateHp(float damage, bool add = false)
         {
-            currentHp -= damage;
+            currentHp -= (damage - armor);
+            OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
                 currentHp = 0;
                 OnDestroy?.Invoke();
             }
-            OnHealthChange?.Invoke(currentHp / maxHp);
         }
     }
 }

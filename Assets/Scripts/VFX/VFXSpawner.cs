@@ -9,7 +9,7 @@ namespace Game.Script.VFXComponent
     public class VFXSpawner : Spawner
     {
         private Dictionary<string, ObjectPool<PoolableComponent>> vfxDictPool;
-        private bool isInitialized = false;
+        
 
         public VFXSpawner(GamePrefabs gamePrefabs) : base(gamePrefabs)
         {
@@ -117,6 +117,14 @@ namespace Game.Script.VFXComponent
         {
             ObjectPool<PoolableComponent> pool = vfxDictPool[key];
             pool.Despawn(vfx);
+        }
+
+        public void DespawnAll()
+        {
+            foreach(var pool in vfxDictPool.Values)
+            {
+                pool.Clear();
+            }
         }
     }
 }

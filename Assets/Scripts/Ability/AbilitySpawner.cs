@@ -53,6 +53,15 @@ namespace Game.Script.SpawnMechanic
                 abilityPools[ability.Ability.Key].Despawn(ability);
             }
         }
+
+        public void DespawnAll()
+        {
+            Dictionary<string, AbilityBase> dict = AbilityManager.Instance.Abilities;
+            foreach(var ability in dict)
+            {
+                abilityPools[ability.Key].Despawn(ability.Value);
+            }
+        }
     }
 }
 

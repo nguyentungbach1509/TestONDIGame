@@ -3,8 +3,6 @@ using Game.Script.CharacterComponent;
 using Game.Script.SpawnMechanic;
 using Game.Script.StateMachine;
 using Game.Script.SubScripts;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Script.PlayerComponent
@@ -16,14 +14,17 @@ namespace Game.Script.PlayerComponent
 
         private PlayerStateController states;
         private AbilityManager abilityManager => AbilityManager.Instance;
+        private Vector2 initPosition;
+        private Vector2 initScale;
 
         public PlayerController Controller => controller;
         public PlayerStateController States => states;
-        
 
         public override void Init()
         {
             base.Init();
+            initPosition = transform.position;
+            initScale = animator.transform.localScale;
             states = new PlayerStateController(this);
             controller.Init(spawner, abilityManager);
         }
@@ -45,7 +46,13 @@ namespace Game.Script.PlayerComponent
             base.AddKilledCount(count);
             RegenHpAbility regen = abilityManager.GetAbility(PrefabConstants.RegenHp_Ability) as RegenHpAbility;
             regen.UseAbility();
-    }
+        }
+
+        public void ReTransform()
+        {
+            transform.position = initPosition;
+            animator.transform.localScale = initScale;
+        }
 
         protected override void OnDie(CharacterBase character)
         {

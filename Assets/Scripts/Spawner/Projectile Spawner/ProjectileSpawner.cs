@@ -28,10 +28,7 @@ namespace Game.Script.SpawnMechanic
             }
         }
 
-        public void DespawnProjectile(string key, ProjectileBase projectile)
-        {
-            projectilePools[key].Despawn(projectile);
-        }
+        
 
         public ProjectileBase SpawnProjectile(string key, Vector3 position, Quaternion rotation)
         {
@@ -48,6 +45,19 @@ namespace Game.Script.SpawnMechanic
             project.transform.SetParent(parent, false);
             project.Init();
             return project;
+        }
+
+        public void DespawnProjectile(string key, ProjectileBase projectile)
+        {
+            projectilePools[key].Despawn(projectile);
+        }
+
+        public void DespawnAll()
+        {
+            foreach(var pool in projectilePools)
+            {
+                pool.Value.Clear();
+            }
         }
     }
 

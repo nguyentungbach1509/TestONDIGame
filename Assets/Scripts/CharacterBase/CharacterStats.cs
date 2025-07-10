@@ -42,7 +42,7 @@ namespace Game.Script.CharacterComponent
         public void UpdateHp(DamageInfor damageInfor, bool add=false)
         {
             if(add) currentHp = Mathf.Clamp(currentHp + damageInfor.Damage, 0, maxHp);
-            else currentHp -= damageInfor.Damage;
+            else currentHp -= (damageInfor.Damage -armor);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
@@ -54,7 +54,7 @@ namespace Game.Script.CharacterComponent
         public void UpdateHp(float damage, bool add=false)
         {
             if(add) currentHp = Mathf.Clamp(currentHp + damage, 0, maxHp);
-            else currentHp -= damage;
+            else currentHp -= (damage - armor);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {

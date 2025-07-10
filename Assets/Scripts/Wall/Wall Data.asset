@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   nameKey: Wall
   stats:
-    maxHp: 1000
+    maxHp: 200
     armor: 5

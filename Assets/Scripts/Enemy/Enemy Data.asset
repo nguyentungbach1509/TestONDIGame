@@ -17,5 +17,5 @@ MonoBehaviour:
   stats:
     maxHp: 50
     armor: 5
-    damage: 10
+    damage: 15
     speed: 2

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Script.Foes
@@ -16,6 +17,7 @@ namespace Game.Script.Foes
             if (enemyDict == null) enemyDict = new();
             else enemyDict.Clear();
         }
+        public static Dictionary<Collider2D, Enemy> EnemyDict => enemyDict;
 
         public static void UpdateAllEnemy()
         {
@@ -34,6 +36,7 @@ namespace Game.Script.Foes
         public static int GetCount() => enemyDict.Count;
         public static void RemoveEnemy(Enemy enemy) => enemyDict.Remove(enemy.Collider);
         public static void RemoveAll() => enemyDict.Clear();
+        public static bool IsEmpty() => enemyDict.Count == 0;
     }
 }
 
