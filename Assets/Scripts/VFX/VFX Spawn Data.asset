@@ -21,3 +21,5 @@ MonoBehaviour:
     key: VFX_Smoke
   - vfxPrefab: {fileID: 4968239171223040158, guid: c110c0d94962d2e4a92ac6f6bfbc7f0c, type: 3}
     key: VFX_Smoke_Boss
+  - vfxPrefab: {fileID: 2217528863923104898, guid: b404194a014f390489e0597273f47600, type: 3}
+    key: VFX_Spell

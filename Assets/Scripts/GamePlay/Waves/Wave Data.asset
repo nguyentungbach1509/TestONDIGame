@@ -15,11 +15,16 @@ MonoBehaviour:
   waves:
   - id: 1
     numberEnemy: 5
+    hasBoss: 0
   - id: 2
     numberEnemy: 5
+    hasBoss: 0
   - id: 3
     numberEnemy: 5
+    hasBoss: 1
   - id: 4
     numberEnemy: 5
+    hasBoss: 0
   - id: 5
     numberEnemy: 5
+    hasBoss: 1

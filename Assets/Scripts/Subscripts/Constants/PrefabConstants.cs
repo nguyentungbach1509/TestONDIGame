@@ -21,6 +21,7 @@ namespace Game.Script.SubScripts
         public static readonly string VFX_Healing = "VFX_Healing";
         public static readonly string VFX_Smoke = "VFX_Smoke";
         public static readonly string VFX_Smoke_Boss = "VFX_Smoke_Boss";
+        public static readonly string VFX_Spell = "VFX_Spell";
         #endregion
 
         #region Abilities

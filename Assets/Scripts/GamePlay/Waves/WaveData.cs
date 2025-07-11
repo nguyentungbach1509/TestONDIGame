@@ -17,9 +17,11 @@ namespace Game.Script.GamePlay
     {
         [SerializeField] private int id;
         [SerializeField] private int numberEnemy;
+        [SerializeField] private bool hasBoss;
 
         public int Id => id;    
         public int NumberEnemy => numberEnemy;
+        public bool HasBoss => hasBoss;
     }
 }
 
