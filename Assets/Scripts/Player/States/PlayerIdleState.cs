@@ -1,6 +1,6 @@
 using Game.Script.CharacterComponent;
 using Game.Script.StateMachine;
-using Game.Script.Subscript.Constants;
+using Game.Script.Subscripts.Constants;
 
 
 namespace Game.Script.PlayerComponent.States
@@ -27,6 +27,21 @@ namespace Game.Script.PlayerComponent.States
                 player.States.ChangeState(EEStateType.Move);
                 return;
             }
+            
+            EAtkType atkType = player.Controller.IsRangeAtk();
+
+            if(atkType == EAtkType.Melee)
+            {
+                player.States.ChangeState(EEStateType.Atk);
+                return;
+            }
+
+            if(atkType == EAtkType.Range)
+            {
+                player.States.ChangeState(EEStateType.AtkRange);
+                return;
+            }
+
         }
     }
 }

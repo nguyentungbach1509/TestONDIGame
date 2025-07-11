@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: VFX Spawn Data
+  m_EditorClassIdentifier: Assembly-CSharp:Game.Script.VFXComponent:VFXSpawnData
+  prefabs:
+  - vfxPrefab: {fileID: 2298247632621003100, guid: f6ce9cbcee244f74eb8b37fcc201ad13, type: 3}
+    key: VFX_Impact
+  - vfxPrefab: {fileID: 7161018561157241881, guid: e6649b8878d46cc4fb70c9516abfab16, type: 3}
+    key: VFX_Healing
+  - vfxPrefab: {fileID: 4968239171223040158, guid: 499aa4c4f95b12c4e9335ee29d558647, type: 3}
+    key: VFX_Smoke
+  - vfxPrefab: {fileID: 4968239171223040158, guid: c110c0d94962d2e4a92ac6f6bfbc7f0c, type: 3}
+    key: VFX_Smoke_Boss
+  - vfxPrefab: {fileID: 2217528863923104898, guid: b404194a014f390489e0597273f47600, type: 3}
+    key: VFX_Spell

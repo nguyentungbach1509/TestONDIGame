@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75816ab99c80d9449b602f67892a822d, type: 3}
+  m_Name: GamePrefabs
+  m_EditorClassIdentifier: 
+  enemySpawn: {fileID: 11400000, guid: a9010f8d02550464e844e062f4522532, type: 2}
+  bossSpawn: {fileID: 11400000, guid: 8ae90a7b3388a1e47a21341298c50e9a, type: 2}
+  projectileSpawn: {fileID: 11400000, guid: 232dca23897ac60489e9ae31fcdc9432, type: 2}
+  vfxSpawn: {fileID: 11400000, guid: d9feeaf38c48b134197847b730935594, type: 2}
+  abilitySpawn: {fileID: 11400000, guid: 8e7070247ab40b84eba80e52913ea35a, type: 2}

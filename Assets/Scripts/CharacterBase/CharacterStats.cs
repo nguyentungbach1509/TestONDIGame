@@ -1,5 +1,6 @@
 using Game.Script.SubScripts;
 using System;
+using UnityEngine;
 
 
 namespace Game.Script.CharacterComponent
@@ -25,8 +26,8 @@ namespace Game.Script.CharacterComponent
         public float Speed => speed;
 
         public Action<float> OnHealthChange;
-        public Action OnDie;
-
+        public Action<CharacterBase> OnDie;
+        public Action<float, bool> OnDamageTaken;
         public CharacterStats(CharacterData data)
         {
             id = data.Id;
@@ -40,24 +41,28 @@ namespace Game.Script.CharacterComponent
 
         public void UpdateHp(DamageInfor damageInfor, bool add=false)
         {
-            currentHp -= damageInfor.Damage;
-            if(currentHp <= 0)
+            if(add) currentHp = Mathf.Clamp(currentHp + damageInfor.Damage, 0, maxHp);
+            else currentHp -= (damageInfor.Damage -armor);
+            OnDamageTaken?.Invoke(add ? damageInfor.Damage: damageInfor.Damage - armor, add);
+            OnHealthChange?.Invoke(currentHp / maxHp);
+            if (currentHp <= 0)
             {
                 currentHp = 0;
-                OnDie?.Invoke();
+                OnDie?.Invoke(damageInfor.Source);
             }
-            OnHealthChange?.Invoke(currentHp / maxHp);
         }
 
         public void UpdateHp(float damage, bool add=false)
         {
-            currentHp -= damage;
+            if(add) currentHp = Mathf.Clamp(currentHp + damage, 0, maxHp);
+            else currentHp -= (damage - armor);
+            OnDamageTaken?.Invoke(add ? damage : damage - armor, add);
+            OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
                 currentHp = 0;
-                OnDie?.Invoke();
+                OnDie?.Invoke(null);
             }
-            OnHealthChange?.Invoke(currentHp / maxHp);
         }
     }
 }

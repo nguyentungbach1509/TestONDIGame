@@ -1,5 +1,6 @@
 using Game.Script.CharacterComponent;
 using Game.Script.StateMachine;
+using Game.Script.Subscripts.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,19 @@ namespace Game.Script.PlayerComponent.States
         public PlayerDieState(CharacterBase characterBase) : base(characterBase)
         {
             player = character as Player;
+            player.Animator.RegisterAnimationEvent(
+                AnimationKey.Die, AnimationEventType.Finished, OnDieFinished);
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            player.Animator.PlayAnimation(AnimationKey.Die);
+        }
+
+        private void OnDieFinished()
+        {
+            
         }
     }
 }

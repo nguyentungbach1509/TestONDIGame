@@ -1,6 +1,6 @@
 using Game.Script.CharacterComponent;
 using Game.Script.StateMachine;
-using Game.Script.Subscript.Constants;
+using Game.Script.Subscripts.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,12 +24,14 @@ namespace Game.Script.PlayerComponent.States
 
         public override void Execute()
         {
-            if(!player.Controller.IsMove())
+            player.Controller.Move();
+
+            if (!player.Controller.IsMove())
             {
                 player.States.ChangeState(EEStateType.Idle);
                 return;
             }
-            player.Controller.Move();
+
         }
     }
 }

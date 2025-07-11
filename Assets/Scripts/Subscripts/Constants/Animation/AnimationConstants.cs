@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Script.Subscript.Constants
+namespace Game.Script.Subscripts.Constants
 {
     public enum AnimationKey
     {

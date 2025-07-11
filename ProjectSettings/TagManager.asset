@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 
@@ -41,9 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Units
     uniqueID: 3300676961
     locked: 0
   - name: UI
     uniqueID: 1406472929
+    locked: 0
+  - name: Vfx
+    uniqueID: 2331531935
     locked: 0

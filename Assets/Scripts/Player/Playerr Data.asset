@@ -16,6 +16,6 @@ MonoBehaviour:
   nameKey: Player
   stats:
     maxHp: 100
-    armor: 5
-    damage: 10
+    armor: 10
+    damage: 15
     speed: 5

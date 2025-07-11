@@ -1,4 +1,4 @@
-﻿using Game.Script.Subscript.Constants;
+﻿using Game.Script.Subscripts.Constants;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,88 +6,96 @@ using UnityEngine;
 namespace Game.Script.StateMachine
 {
  
+    public enum AnimationEventType
+    {
+        Started,
+        Hit,
+        Finished,
+    }
 
-        public enum AnimationEventType
+    public class AnimationController : MonoBehaviour
+    {
+        [SerializeField] private Animator animator;
+
+        // Dictionary lưu các event cho từng loại animation
+        private Dictionary<AnimationKey, Dictionary<AnimationEventType, Action>> animationEvents
+            = new Dictionary<AnimationKey, Dictionary<AnimationEventType, Action>>();
+
+        public void PlayAnimation(AnimationKey key)
         {
-            Started,
-            Hit,
-            Finished,
+            animator.SetTrigger(key.Hash());
         }
 
-        public class AnimationController : MonoBehaviour
+        public void PlayAnimation(string key, int value)
         {
-            [SerializeField] private Animator animator;
+            animator.SetInteger(key, value);
+        }
 
-            // Dictionary lưu các event cho từng loại animation
-            private Dictionary<AnimationKey, Dictionary<AnimationEventType, Action>> animationEvents
-                = new Dictionary<AnimationKey, Dictionary<AnimationEventType, Action>>();
+        public void PlayBlendAnimation(AnimationKey key, float blendTime)
+        {
+            animator.SetFloat(key.Hash(), blendTime);
+        }
 
-            public void PlayAnimation(AnimationKey key)
+
+        public AnimatorStateInfo AnimationStateInfo()
+        {
+            return animator.GetCurrentAnimatorStateInfo(0);
+        }
+
+        // Đăng ký event cho một animation cụ thể
+        public void RegisterAnimationEvent(AnimationKey key, AnimationEventType eventType, Action callback)
+        {
+            if (!animationEvents.ContainsKey(key))
             {
-                animator.SetTrigger(key.Hash());
+                animationEvents[key] = new Dictionary<AnimationEventType, Action>();
             }
 
-            public void PlayAnimation(string key, int value)
+            animationEvents[key][eventType] = callback;
+        }
+
+        // Hủy đăng ký event
+        public void UnregisterAnimationEvent(AnimationKey key, AnimationEventType eventType)
+        {
+            if (animationEvents.ContainsKey(key) && animationEvents[key].ContainsKey(eventType))
             {
-                animator.SetInteger(key, value);
+                animationEvents[key].Remove(eventType);
             }
+        }
 
-            public void PlayBlendAnimation(AnimationKey key, float blendTime)
+        public void UnRegisterAllEvent()
+        {
+            foreach (var animKey in animationEvents.Keys)
             {
-                animator.SetFloat(key.Hash(), blendTime);
+                animationEvents[animKey].Clear();
             }
+            animationEvents.Clear();
+        }
 
+        // Method này sẽ được gọi từ Animation Event trong Animator
+        public void OnAnimationEvent(string eventData)
+        {
+            // eventData format: "AnimationKey:EventType"
+            string[] data = eventData.Split(':');
+            if (data.Length != 2) return;
 
-            public AnimatorStateInfo AnimationStateInfo()
+            if (Enum.TryParse(data[0], out AnimationKey key) &&
+                Enum.TryParse(data[1], out AnimationEventType eventType))
             {
-                return animator.GetCurrentAnimatorStateInfo(0);
-            }
-
-            // Đăng ký event cho một animation cụ thể
-            public void RegisterAnimationEvent(AnimationKey key, AnimationEventType eventType, Action callback)
-            {
-                if (!animationEvents.ContainsKey(key))
+                if (animationEvents.ContainsKey(key) &&
+                    animationEvents[key].ContainsKey(eventType))
                 {
-                    animationEvents[key] = new Dictionary<AnimationEventType, Action>();
-                }
-
-                animationEvents[key][eventType] = callback;
-            }
-
-            // Hủy đăng ký event
-            public void UnregisterAnimationEvent(AnimationKey key, AnimationEventType eventType)
-            {
-                if (animationEvents.ContainsKey(key) && animationEvents[key].ContainsKey(eventType))
-                {
-                    animationEvents[key].Remove(eventType);
-                }
-            }
-
-            // Method này sẽ được gọi từ Animation Event trong Animator
-            public void OnAnimationEvent(string eventData)
-            {
-                // eventData format: "AnimationKey:EventType"
-                string[] data = eventData.Split(':');
-                if (data.Length != 2) return;
-
-                if (Enum.TryParse(data[0], out AnimationKey key) &&
-                    Enum.TryParse(data[1], out AnimationEventType eventType))
-                {
-                    if (animationEvents.ContainsKey(key) &&
-                        animationEvents[key].ContainsKey(eventType))
-                    {
-                        animationEvents[key][eventType]?.Invoke();
-                    }
+                    animationEvents[key][eventType]?.Invoke();
                 }
             }
+        }
 
-            // Tiện ích để kiểm tra trạng thái animation
-            public bool IsAnimationFinished(AnimationKey key)
-            {
-                var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-                return currentInfo.IsName(key.ToString()) && currentInfo.normalizedTime >= 1f;
-            }
+        // Tiện ích để kiểm tra trạng thái animation
+        public bool IsAnimationFinished(AnimationKey key)
+        {
+            var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+            return currentInfo.IsName(key.ToString()) && currentInfo.normalizedTime >= 1f;
         }
     }
+}
 
 
