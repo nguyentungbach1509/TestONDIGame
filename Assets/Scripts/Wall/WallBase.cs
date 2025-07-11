@@ -21,6 +21,8 @@ namespace Game.Script.WallComponent
         public void Init()
         {
             stats = new WallStats(data);
+            canvas.DamagePopup.Init();
+            stats.OnDamageTaken += canvas.DamagePopup.UpdateDmgText;
             stats.OnHealthChange += canvas.HealthBar.UpdateHealth;
             stats.OnDestroy += OnWallDestroy;
             canvas.HealthBar.SetInitHP();
@@ -56,6 +58,7 @@ namespace Game.Script.WallComponent
         private void OnWallDestroy()
         {
             stats.OnDestroy -= OnWallDestroy;
+            stats.OnDamageTaken -= canvas.DamagePopup.UpdateDmgText;
             stats.OnHealthChange -= canvas.HealthBar.UpdateHealth;
         }
     }

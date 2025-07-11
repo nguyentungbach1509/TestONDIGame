@@ -20,6 +20,7 @@ namespace Game.Script.PlayerComponent.States
         public override void Enter()
         {
             base.Enter();
+            player.Animator.PlayAnimation(AnimationKey.Die);
         }
 
         private void OnDieFinished()

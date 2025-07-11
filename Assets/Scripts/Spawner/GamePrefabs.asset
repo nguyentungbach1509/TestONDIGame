@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GamePrefabs
   m_EditorClassIdentifier: 
   enemySpawn: {fileID: 11400000, guid: a9010f8d02550464e844e062f4522532, type: 2}
+  bossSpawn: {fileID: 11400000, guid: 8ae90a7b3388a1e47a21341298c50e9a, type: 2}
   projectileSpawn: {fileID: 11400000, guid: 232dca23897ac60489e9ae31fcdc9432, type: 2}
   vfxSpawn: {fileID: 11400000, guid: d9feeaf38c48b134197847b730935594, type: 2}
   abilitySpawn: {fileID: 11400000, guid: 8e7070247ab40b84eba80e52913ea35a, type: 2}

@@ -47,8 +47,8 @@ namespace Game.Script.Foes
 
         protected override void OnDie(CharacterBase character)
         {
-            base.OnDie(character);
             states.ChangeState(EEStateType.Die);
+            base.OnDie(character);
             if (character != this) character.AddKilledCount(1);
         }
 

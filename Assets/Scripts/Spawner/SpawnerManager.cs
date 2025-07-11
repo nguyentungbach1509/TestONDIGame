@@ -3,6 +3,7 @@ using Game.Script.SubScripts;
 using Game.Script.VFXComponent;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 namespace Game.Script.SpawnMechanic
 {
@@ -32,19 +33,24 @@ namespace Game.Script.SpawnMechanic
         private ProjectileSpawner projectileSpawner;
         private VFXSpawner vfxSpawner;
         private AbilitySpawner abilitySpawner;
+        private PlayerSpawner playerSpawner;
         private GameMode mode => GameManager.Instance.Mode;
+        private bool onceTime;
 
         public EnemySpawner EnemySpawner => enemySpawner;
         public ProjectileSpawner ProjectileSpawner => projectileSpawner;  
         public VFXSpawner VFXSpawner => vfxSpawner;
         public AbilitySpawner AbilitySpawner => abilitySpawner;
-
+        public PlayerSpawner PlayerSpawner => playerSpawner;
         public void Init()
         {
             enemySpawner = new EnemySpawner(gamePrefabs);
             projectileSpawner = new ProjectileSpawner(gamePrefabs);
             vfxSpawner = new VFXSpawner(gamePrefabs);
             abilitySpawner = new AbilitySpawner(gamePrefabs);
+            playerSpawner = new PlayerSpawner(gamePrefabs);
+            playerSpawner.SetPlayer(mode.Player);
+            onceTime = false;
         }
 
 
@@ -112,6 +118,7 @@ namespace Game.Script.SpawnMechanic
         {
             if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
             else StopCoroutine(Spawn(currentWave));
+            onceTime = false;
         }
 
         private IEnumerator Spawn(int currentWave)
@@ -124,10 +131,22 @@ namespace Game.Script.SpawnMechanic
                 float randomInterval = Random.Range(spawnMinInterval, spawnMaxInterval);
                 foreach (Vector2 point in points)
                 {
+                    VFX vfx = vfxSpawner.SpawnVFX(PrefabConstants.VFX_Smoke, 
+                        point, Quaternion.identity, null);
+                    yield return new WaitForSeconds(vfx.EndReduceTime);
+                    vfxSpawner.DespawnVFX(PrefabConstants.VFX_Smoke, vfx);
                     enemySpawner.SpawnEnemy(PrefabConstants.Slime, point, Quaternion.identity);
-
                 }
                 yield return new WaitForSeconds(randomInterval);
+                if (mode.IsBossShow(currentWave) && !onceTime)
+                {
+                    onceTime = true;
+                    VFX vfx = vfxSpawner.SpawnVFX(PrefabConstants.VFX_Smoke_Boss,
+                        points[0], Quaternion.identity, null);
+                    yield return new WaitForSeconds(vfx.EndReduceTime);
+                    vfxSpawner.DespawnVFX(PrefabConstants.VFX_Smoke, vfx);
+                    enemySpawner.SpawnBoss(currentWave, points[0], Quaternion.identity);
+                }
             }
 
         }

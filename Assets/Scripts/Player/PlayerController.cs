@@ -83,11 +83,11 @@ namespace Game.Script.PlayerComponent
         public EAtkType IsRangeAtk()
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, atkRange, layerMask);
-
+            currentTarget = null;
             enemyInMeleeRange.Clear();
             float distance = 0;
             float minDistance = atkRange;
-            currentTarget = null;
+
 
             foreach(var collider in colliders)
             {
@@ -130,7 +130,8 @@ namespace Game.Script.PlayerComponent
                 arrow.SetOwner(player);
                 arrow.SetDamage(player.Stats.Damage);
                 arrow.MoveTo(currentTarget.transform);
-                
+                currentTarget = null;
+
                 return;
             }
 

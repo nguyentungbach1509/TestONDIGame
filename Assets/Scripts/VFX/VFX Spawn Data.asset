@@ -17,3 +17,7 @@ MonoBehaviour:
     key: VFX_Impact
   - vfxPrefab: {fileID: 7161018561157241881, guid: e6649b8878d46cc4fb70c9516abfab16, type: 3}
     key: VFX_Healing
+  - vfxPrefab: {fileID: 4968239171223040158, guid: 499aa4c4f95b12c4e9335ee29d558647, type: 3}
+    key: VFX_Smoke
+  - vfxPrefab: {fileID: 4968239171223040158, guid: c110c0d94962d2e4a92ac6f6bfbc7f0c, type: 3}
+    key: VFX_Smoke_Boss

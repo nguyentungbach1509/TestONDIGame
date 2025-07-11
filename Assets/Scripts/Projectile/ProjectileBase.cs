@@ -27,7 +27,7 @@ namespace Game.Script.ProjectileComponent
         public void SetDamage(float damage) => projectile.SetDamage(damage);
         public void SetOwner(CharacterBase owner) => projectile.SetSource(owner); 
         
-        protected virtual void DestroyProjectile()
+        public virtual void DestroyProjectile()
         {
             spawner.ProjectileSpawner.DespawnProjectile(projectile.Key, this);
         }

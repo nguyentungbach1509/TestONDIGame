@@ -1,4 +1,5 @@
 using Game.Script.CharacterComponent;
+using Game.Script.Foes.Bosses;
 using Game.Script.StateMachine;
 using Game.Script.Subscripts.Constants;
 
@@ -23,6 +24,11 @@ namespace Game.Script.Foes.States
 
         private void OnDieFinished()
         {
+            if(enemy is Boss)
+            {
+                enemy.Spawner.EnemySpawner.DespawnBoss(enemy.Stats.KeyName, enemy as Boss);
+                return;
+            }
             enemy.Spawner.EnemySpawner.DespawnEnemy(enemy.Stats.KeyName, enemy);
         }
     }

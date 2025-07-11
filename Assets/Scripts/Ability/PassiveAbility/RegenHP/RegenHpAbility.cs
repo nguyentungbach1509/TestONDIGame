@@ -18,7 +18,8 @@ namespace Game.Script.AbilityComponent
 
         public override void UseAbility()
         {
-            if(enemyCount >= 5)
+            enemyCount++;
+            if (enemyCount >= 5)
             {
                 player.Stats.UpdateHp(regenAmount, true);
                 player.Spawner.VFXSpawner.SpawnVFX(
@@ -26,7 +27,6 @@ namespace Game.Script.AbilityComponent
                 enemyCount = 0;
                 return;
             }
-            enemyCount++;
             base.UseAbility();
         }
     }

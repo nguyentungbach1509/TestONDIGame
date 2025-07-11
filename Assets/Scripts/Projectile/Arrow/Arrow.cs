@@ -19,6 +19,7 @@ namespace Game.Script.ProjectileComponent
             base.Init();
         }
 
+       
         public override void MoveTo(Transform target)
         {
             base.MoveTo(target);
@@ -39,7 +40,6 @@ namespace Game.Script.ProjectileComponent
                     // Tính vị trí mới
                     float x = Mathf.Lerp(savePos.x, end.x, t);
 
-                    // Tính Y theo parabol đỉnh ở giữa (không dùng Lerp y)
                     float y = Mathf.Lerp(savePos.y, end.y, t) + height * 4 * t * (1 - t);
 
                     Vector2 position = new Vector2(x, y);

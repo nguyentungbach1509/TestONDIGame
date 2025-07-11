@@ -7,6 +7,8 @@ namespace Game.Script.SubScripts
     {
         #region Enemies
         public static readonly string Slime = "Slime";
+        public static readonly string Slime_Boss = "Slime_Boss";
+        public static readonly string Slime_Boss_Blue = "Slime_Boss_Blue";
         #endregion
 
         #region Projectiles
@@ -17,6 +19,8 @@ namespace Game.Script.SubScripts
         #region VFX
         public static readonly string VFX_Impact = "VFX_Impact";
         public static readonly string VFX_Healing = "VFX_Healing";
+        public static readonly string VFX_Smoke = "VFX_Smoke";
+        public static readonly string VFX_Smoke_Boss = "VFX_Smoke_Boss";
         #endregion
 
         #region Abilities

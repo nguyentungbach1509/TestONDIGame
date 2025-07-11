@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 0
   nameKey: Slime
   stats:
-    maxHp: 50
+    maxHp: 60
     armor: 5
     damage: 15
     speed: 2

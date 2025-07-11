@@ -22,7 +22,7 @@ namespace Game.Script.WallComponent
 
         public Action<float> OnHealthChange;
         public Action OnDestroy;
-
+        public Action<float, bool> OnDamageTaken;
         public WallStats(WallData data)
         {
             id = data.Id;
@@ -35,6 +35,7 @@ namespace Game.Script.WallComponent
         public void UpdateHp(DamageInfor damageInfor, bool add = false)
         {
             currentHp -= (damageInfor.Damage - armor);
+            OnDamageTaken?.Invoke(damageInfor.Damage - armor, add);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {
@@ -46,6 +47,7 @@ namespace Game.Script.WallComponent
         public void UpdateHp(float damage, bool add = false)
         {
             currentHp -= (damage - armor);
+            OnDamageTaken?.Invoke(damage - armor, add);
             OnHealthChange?.Invoke(currentHp / maxHp);
             if (currentHp <= 0)
             {

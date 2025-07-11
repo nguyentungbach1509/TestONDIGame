@@ -9,13 +9,13 @@ namespace Game.Script.UI
     public class GeneralHUD : MonoBehaviour
     {
         [SerializeField] TimeScale timeScale;
-        [SerializeField] TMP_Text waveText;
+        [SerializeField] WaveText waveText;
 
         public void Init()
         {
             GameNormalMode.OnWaveChange -= UpdateTxt;
             GameNormalMode.OnWaveChange += UpdateTxt;
-            waveText.text = "Preparing Wave";
+            UpdateTxt(-1);
             timeScale.Init();
         }
 
@@ -23,10 +23,10 @@ namespace Game.Script.UI
         {
             if(currentWave == -1)
             {
-                waveText.text = "Preparing Wave";
+                waveText.ShowStageText("Preparing Time");
                 return;
             }
-            waveText.text = $"Wave: {currentWave}";
+            waveText.ShowStageText($"Wave: {currentWave}");
         }
     }
 }

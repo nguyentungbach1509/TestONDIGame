@@ -38,7 +38,16 @@ namespace Game.Script.GamePlay
         }
 
         public bool IsLastWave(int currentWave) => currentWave >= waves.Count - 1;
-        public void ReplayMode()
+        public bool IsBossShow(int currentWave)
+        {
+            if (!IsLastWave(currentWave)) return false;
+            int randomPart = Random.Range(2, 5);
+            int partRemain = waves[currentWave - 1].NumberEnemy / randomPart;
+            int remain = waves[currentWave - 1].NumberEnemy - currentEnemyNumber;
+            return remain <= partRemain;
+        }
+
+        public virtual void ReplayMode()
         {
             isInit = false;
             player.ReTransform();

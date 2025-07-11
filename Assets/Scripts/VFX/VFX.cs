@@ -24,6 +24,7 @@ namespace Game.Script.VFXComponent
 
         public float EndOffsetTime => clip.length + .125f;
         public float EndTime => clip.length;
+        public float EndReduceTime => clip.length - .125f;
     }
 }
 

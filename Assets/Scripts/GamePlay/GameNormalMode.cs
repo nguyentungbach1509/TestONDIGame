@@ -1,4 +1,5 @@
 using Game.Script.Foes;
+using Game.Script.PlayerComponent;
 using Game.Script.SpawnMechanic;
 using System;
 using System.Collections.Generic;
@@ -34,10 +35,14 @@ namespace Game.Script.GamePlay
             waves = new List<Wave>(data.Data);
             maxWave = waves.Count;
             currentWave = 0;
+            currentEnemyNumber = 0;
             waveType = EWaveType.BreakingWave;
             timeCounter = buildingTime;
             wall.Stats.OnDestroy -= gameManager.LoseHandler;
             wall.Stats.OnDestroy += gameManager.LoseHandler;
+            player.Stats.OnDie -= spawner.PlayerSpawner.RebornPlayer;
+            player.Stats.OnDie += spawner.PlayerSpawner.RebornPlayer;
+
             isInit = true;
         }
 
@@ -60,19 +65,13 @@ namespace Game.Script.GamePlay
             if (EnemyCache.IsEmpty() && EndWave(currentWave))
             {
                 EnemyCache.RemoveAll();
-                SetEnemyNumber(0);
+                currentEnemyNumber = 0;
                 spawner.PauseSpawn(currentWave);
                 timeCounter = buildingTime;
                 waveType = EWaveType.BreakingWave;
                 OnWaveChange?.Invoke(-1);
                 return;
             }
-            /*if (EndWave(currentWave))
-            {
-                spawner.PauseSpawn(currentWave);
-                timeCounter = buildingTime;
-                return;
-            }*/
         }
 
         private void CountDownTime()
