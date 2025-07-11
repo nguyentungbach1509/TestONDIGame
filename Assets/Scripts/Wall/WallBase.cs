@@ -1,3 +1,4 @@
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Game.Script.WallComponent
         {
             stats = new WallStats(data);
             canvas.DamagePopup.Init();
-            stats.OnDamageTaken += canvas.DamagePopup.UpdateDmgText;
+            stats.OnDamageTaken += OnTakenDamage;
             stats.OnHealthChange += canvas.HealthBar.UpdateHealth;
             stats.OnDestroy += OnWallDestroy;
             canvas.HealthBar.SetInitHP();
@@ -58,8 +59,22 @@ namespace Game.Script.WallComponent
         private void OnWallDestroy()
         {
             stats.OnDestroy -= OnWallDestroy;
-            stats.OnDamageTaken -= canvas.DamagePopup.UpdateDmgText;
+            stats.OnDamageTaken -= OnTakenDamage;
             stats.OnHealthChange -= canvas.HealthBar.UpdateHealth;
+        }
+
+        private void OnTakenDamage(float damage, bool add)
+        {
+            canvas.DamagePopup.UpdateDmgText(damage, add);
+            sprite.transform.DOKill();
+            sprite.transform.DOShakePosition(
+                duration: 0.125f,      
+                strength: new Vector3(0.15f, 0f, 0f),
+                vibrato: 8,         
+                randomness: 0f,     
+                snapping: false,
+                fadeOut: true        
+            );
         }
     }
 }

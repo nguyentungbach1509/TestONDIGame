@@ -17,14 +17,14 @@ MonoBehaviour:
     numberEnemy: 5
     hasBoss: 0
   - id: 2
-    numberEnemy: 5
+    numberEnemy: 7
     hasBoss: 0
   - id: 3
-    numberEnemy: 5
+    numberEnemy: 9
     hasBoss: 1
   - id: 4
-    numberEnemy: 5
+    numberEnemy: 12
     hasBoss: 0
   - id: 5
-    numberEnemy: 5
+    numberEnemy: 15
     hasBoss: 1
