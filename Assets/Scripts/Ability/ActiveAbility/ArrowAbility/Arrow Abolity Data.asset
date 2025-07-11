@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 0
   key: Arrow_Ability
   description: 
-  cooldownTime: 10
+  cooldownTime: 5
   sprite: {fileID: 21300000, guid: e271159c4a6a77e47a05ac6d944174f5, type: 3}
   abilitType: 0
