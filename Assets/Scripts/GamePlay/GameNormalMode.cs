@@ -40,8 +40,6 @@ namespace Game.Script.GamePlay
             timeCounter = buildingTime;
             wall.Stats.OnDestroy -= gameManager.LoseHandler;
             wall.Stats.OnDestroy += gameManager.LoseHandler;
-            player.Stats.OnDie -= spawner.PlayerSpawner.RebornPlayer;
-            player.Stats.OnDie += spawner.PlayerSpawner.RebornPlayer;
 
             isInit = true;
         }

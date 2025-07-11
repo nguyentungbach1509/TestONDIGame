@@ -14,6 +14,7 @@ namespace Game.Script.SpawnMechanic
 
         public PlayerSpawner(GamePrefabs gamePrefabs) : base(gamePrefabs)
         {
+            
         }
 
         public void SetPlayer(Player player)
@@ -21,7 +22,7 @@ namespace Game.Script.SpawnMechanic
             this.player = player;
         }
 
-        public void RebornPlayer(CharacterBase character)
+        public void RebornPlayer()
         {
             rebornTween?.Kill();
 

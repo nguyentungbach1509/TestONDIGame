@@ -142,10 +142,10 @@ namespace Game.Script.SpawnMechanic
                 {
                     onceTime = true;
                     VFX vfx = vfxSpawner.SpawnVFX(PrefabConstants.VFX_Smoke_Boss,
-                        points[0], Quaternion.identity, null);
+                        points[^1], Quaternion.identity, null);
                     yield return new WaitForSeconds(vfx.EndReduceTime);
                     vfxSpawner.DespawnVFX(PrefabConstants.VFX_Smoke, vfx);
-                    enemySpawner.SpawnBoss(currentWave, points[0], Quaternion.identity);
+                    enemySpawner.SpawnBoss(currentWave, points[^1], Quaternion.identity);
                 }
             }
 

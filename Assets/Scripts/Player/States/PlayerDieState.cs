@@ -25,7 +25,8 @@ namespace Game.Script.PlayerComponent.States
 
         private void OnDieFinished()
         {
-            
+            player.Animator.UnRegisterAllEvent();
+            player.Spawner.PlayerSpawner.RebornPlayer();
         }
     }
 }

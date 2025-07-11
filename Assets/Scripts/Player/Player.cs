@@ -58,8 +58,8 @@ namespace Game.Script.PlayerComponent
         {
             base.OnDie(character);
             states.ChangeState(EEStateType.Die);
-            animator.UnRegisterAllEvent();
         }
+
     }
 }
 
